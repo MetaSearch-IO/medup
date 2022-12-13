@@ -166,7 +166,7 @@ module Medium
         schema = params["schema"]
         alt_text = params["display_name"]? || schema
         thumbnail_url = params["image"]? || ""
-        src = params["src"]
+        src = params["src"]? || ""
 
         result = "__#{schema}__:\n"
         image = schema
