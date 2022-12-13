@@ -7,6 +7,8 @@ module Medup
 
     @[JSON::Field(ignore: true)]
     property raw : String = ""
+
+    @[JSON::Field(ignore: true)]
     property raw_payload : String = ""
 
     property id : Int32?
