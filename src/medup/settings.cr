@@ -19,6 +19,7 @@ module Medup
     property assets_base_path : String = DEFAULT_ASSETS_BASE_PATH
     property options : Array(::Medup::Options) = Array(Medup::Options).new
     @dry_run : Bool = false
+    @skip_image_downloads : Bool = false
 
     def initialize
     end
@@ -54,5 +55,14 @@ module Medup
     def dry_run? : Bool
       @dry_run
     end
+
+    def skip_image_downloads!
+      @skip_image_downloads = true
+    end
+
+    def skip_image_downloads? : Bool
+      @skip_image_downloads
+    end
+
   end
 end

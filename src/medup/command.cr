@@ -50,6 +50,9 @@ module Medup
         parser.on("--dry-run", "Send requests, but does not save or modify anything on filesystem.") {
           settings.dry_run!
         }
+        parser.on("--skip-image-downloads", "Skip downloading images.") {
+          settings.skip_image_downloads!
+        }
 
         parser.missing_option do |option_flag|
           STDERR.puts "error: flag needs an argument: #{option_flag}"
