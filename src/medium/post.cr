@@ -24,6 +24,8 @@ module Medium
       case ext
       when "json"
         to_pretty_json
+      when "full-payload-json"
+        to_pretty_full_payload_json
       when "md"
         to_md
       else
@@ -71,6 +73,10 @@ module Medium
     end
 
     def to_pretty_json
+      @content.to_pretty_json
+    end
+
+    def to_pretty_full_payload_json
       @content.to_pretty_json
     end
 

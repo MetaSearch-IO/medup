@@ -7,6 +7,7 @@ module Medup
     SOURCE_RECOMMENDED_POSTS = "has-recommended"
     MARKDOWN_FORMAT          = "md"
     JSON_FORMAT              = "json"
+    FULL_PAYLOAD_JSON_FORMAT = "full-payload-json"
 
     ctx : ::Medup::Context
     update : Bool
@@ -124,6 +125,13 @@ module Medup
       if format == "json"
         if !@ctx.settings.dry_run?
           File.write(filepath, post.to_pretty_json)
+        end
+        return
+      end
+
+      if format == "full-payload-json"
+        if !@ctx.settings.dry_run?
+          File.write(filepath, post.to_pretty_full_payload_json)
         end
         return
       end

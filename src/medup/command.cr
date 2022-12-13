@@ -33,7 +33,7 @@ module Medup
         parser.on("-d DIRECTORY", "--directory=DIRECTORY", "Path to local directory where articles should be dumped. Default: ./posts") { |d| settings.posts_dist = d }
         parser.on("-f FORMAT", "--format=FORMAT", "Specify the document format. Available options: md or json. Default: md") do |f|
           format = f
-          unless [::Medup::Tool::MARKDOWN_FORMAT, ::Medup::Tool::JSON_FORMAT].includes?(format)
+          unless [::Medup::Tool::MARKDOWN_FORMAT, ::Medup::Tool::JSON_FORMAT, ::Medup::Tool::FULL_PAYLOAD_JSON_FORMAT].includes?(format)
             STDERR.puts "error: unknown format option: #{format}"
             puts parser
             should_exit = true
