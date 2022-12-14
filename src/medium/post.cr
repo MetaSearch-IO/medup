@@ -1,5 +1,6 @@
 require "json_mapping"
 require "yaml"
+require "json"
 
 require "./post/*"
 
@@ -7,6 +8,7 @@ module Medium
   class Post
     property ctx : ::Medup::Context = ::Medup::Context.new
     property user : Medium::User?
+    property raw_payload : String = ""
 
     JSON.mapping(
       title: String,
@@ -24,6 +26,8 @@ module Medium
       case ext
       when "json"
         to_pretty_json
+      when "full-payload-json"
+        to_pretty_full_payload_json
       when "md"
         to_md
       else
@@ -72,6 +76,11 @@ module Medium
 
     def to_pretty_json
       @content.to_pretty_json
+    end
+
+    def to_pretty_full_payload_json
+        return "" if @raw_payload == ""
+      JSON.parse(@raw_payload).to_pretty_json
     end
 
     def seo_description

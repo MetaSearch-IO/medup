@@ -33,7 +33,7 @@ module Medup
         parser.on("-d DIRECTORY", "--directory=DIRECTORY", "Path to local directory where articles should be dumped. Default: ./posts") { |d| settings.posts_dist = d }
         parser.on("-f FORMAT", "--format=FORMAT", "Specify the document format. Available options: md or json. Default: md") do |f|
           format = f
-          unless [::Medup::Tool::MARKDOWN_FORMAT, ::Medup::Tool::JSON_FORMAT].includes?(format)
+          unless [::Medup::Tool::MARKDOWN_FORMAT, ::Medup::Tool::JSON_FORMAT, ::Medup::Tool::FULL_PAYLOAD_JSON_FORMAT].includes?(format)
             STDERR.puts "error: unknown format option: #{format}"
             puts parser
             should_exit = true
@@ -49,6 +49,9 @@ module Medup
         parser.on("-v LEVEL", "--v=LEVEL", "Number for the log level verbosity. E.g.: -v7") { |l| log_level = l.to_i8 }
         parser.on("--dry-run", "Send requests, but does not save or modify anything on filesystem.") {
           settings.dry_run!
+        }
+        parser.on("--skip-image-downloads", "Skip downloading images.") {
+          settings.skip_image_downloads!
         }
 
         parser.missing_option do |option_flag|

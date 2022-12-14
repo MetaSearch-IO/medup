@@ -36,6 +36,8 @@ module Medium
         content : String = ""
         assets = ""
         asset_name = ""
+        asset_type = ""
+        asset_body = ""
         assets_base_path = settings.assets_base_path
         content = case @type
                   when 1
@@ -47,7 +49,10 @@ module Medium
                   when 4
                     m = metadata
                     if !m.nil? && !m.id.nil?
-                      asset_body, asset_type, asset_name = download_image(m.id || "")
+                      if !settings.skip_image_downloads?
+                        asset_body, asset_type, asset_name = download_image(m.id || "")
+                        assets_base_path = "https://miro.medium.com/"
+                      end
                       asset_id = Base64.strict_encode(m.id)
                       if settings.assets_image?
                         assets = asset_body
@@ -166,7 +171,7 @@ module Medium
         schema = params["schema"]
         alt_text = params["display_name"]? || schema
         thumbnail_url = params["image"]? || ""
-        src = params["src"]
+        src = params["src"]? || ""
 
         result = "__#{schema}__:\n"
         image = schema
