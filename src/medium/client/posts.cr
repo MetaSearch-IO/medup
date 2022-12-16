@@ -36,12 +36,13 @@ module Medium
         while params
           response = get(stream_url, params: params)
           records = response["payload"]["streamItems"]
-
           records.raw.as(Array).each do |post|
             post_preview = post.raw.as(Hash)
             if post_preview["itemType"] == "postPreview"
               post_id = post["postPreview"]["postId"].raw.as(String)
               result << post_id_to_url(post_id)
+
+              puts('"' + post_id + '"' +  " : " + '"' + response["payload"]["references"]["Post"][post_id]["versionId"].raw.as(String) + '"')
             end
           end
 
@@ -84,9 +85,9 @@ module Medium
 
           if references.has_key?("Post")
             records = references["Post"]
-
             records.raw.as(Hash).each do |post_id, post|
               result << post_id_to_url(post_id)
+              puts('"' + post_id + '"' +  " : " + '"' + records[post_id]["versionId"].raw.as(String) + '"')
             end
           end
 
@@ -118,9 +119,9 @@ module Medium
 
         if references.has_key?("Post")
           records = references["Post"]
-
           records.raw.as(Hash).each do |post_id, post|
             result << post_id_to_url(post_id)
+            puts('"' + post_id + '"' +  " : " + '"' + records[post_id]["versionId"].raw.as(String) + '"')
           end
         end
 

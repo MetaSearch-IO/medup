@@ -63,11 +63,6 @@ module Medup
 
       raise "No articles to backup" if posts.nil? || posts.empty?
 
-      if @ctx.settings.post_list_only?
-        puts posts.to_json
-        return
-      end
-
       create_directory(@dist)
       create_directory(@assets_dist)
       process_posts_async(posts)
