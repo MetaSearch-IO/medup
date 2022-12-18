@@ -20,6 +20,7 @@ module Medup
     property options : Array(::Medup::Options) = Array(Medup::Options).new
     @dry_run : Bool = false
     @skip_image_downloads : Bool = false
+    @post_list_only : Bool = false
 
     def initialize
     end
@@ -54,6 +55,14 @@ module Medup
 
     def dry_run? : Bool
       @dry_run
+    end
+
+    def post_list_only! : Bool
+      @post_list_only = true
+    end
+
+    def post_list_only? : Bool
+      @post_list_only
     end
 
     def skip_image_downloads!

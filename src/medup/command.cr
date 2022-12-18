@@ -54,6 +54,10 @@ module Medup
           settings.skip_image_downloads!
         }
 
+        parser.on("--post-list-only", "Only get post list, do not download posts.") {
+          settings.post_list_only!
+        }
+
         parser.missing_option do |option_flag|
           STDERR.puts "error: flag needs an argument: #{option_flag}"
           STDERR.puts "See 'medup --help' for usage."
