@@ -58,6 +58,10 @@ module Medup
           settings.post_list_only!
         }
 
+        parser.on("--no-md-header", "Do not add header to markdown files.") {
+          settings.no_md_header!
+        }
+
         parser.missing_option do |option_flag|
           STDERR.puts "error: flag needs an argument: #{option_flag}"
           STDERR.puts "See 'medup --help' for usage."

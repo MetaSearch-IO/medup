@@ -53,6 +53,10 @@ module Medium
 
       result = header.to_yaml + "---\n\n"
 
+      if @ctx.settings.no_md_header?
+        result = ""
+      end
+
       assets = Hash(String, String).new
       footer = "\n"
 
