@@ -52,7 +52,7 @@ module Medium
                       if !settings.skip_image_downloads?
                         asset_body, asset_type, asset_name = download_image(m.id || "")
                       else
-                        assets_base_path = "https://miro.medium.com/"
+                        assets_base_path = "https://miro.medium.com"
                         asset_name = (m.id || "")
                       end
                       asset_id = Base64.strict_encode(m.id)
