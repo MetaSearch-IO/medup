@@ -23,6 +23,7 @@ module Medium
           mixtapeMetadata: MixtapeMetadata?,
           href:            String?,
           alignment:       Int64?,
+          codeBlockMetadata:  CodeBlockMetadata?,
         },
         strict: true
       )
@@ -74,7 +75,9 @@ module Medium
                   when 7
                     ">> #{markup}"
                   when 8
-                    "```\n#{@text}\n```"
+                    lang = "#{@codeBlockMetadata.try &.lang}"
+
+                    "```#{lang}\n#{@text}\n```"
                   when 9
                     "* #{markup}"
                   when 10
@@ -392,6 +395,13 @@ module Medium
         JSON.mapping(
           mediaResourceId: String,
           href: String?
+        )
+      end
+
+      class CodeBlockMetadata
+        JSON.mapping(
+          mode: Int64?,
+          lang: String?
         )
       end
 
