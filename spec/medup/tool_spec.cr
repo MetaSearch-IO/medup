@@ -37,12 +37,12 @@ describe Medup::Tool do
               "itemType": "postPreview",
               "postPreview": {"postId": "postid"}
             }
-          ]
-        },
-        "references": {
-          "Post": {
-            "postId": {
-              "versionId": "versionId"
+          ],
+          "references": {
+            "Post": {
+              "postid": {
+                "versionId": "versionId"
+              }
             }
           }
         }
