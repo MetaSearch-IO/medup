@@ -38,6 +38,13 @@ describe Medup::Tool do
               "postPreview": {"postId": "postid"}
             }
           ]
+        },
+        "references": {
+          "Post": {
+            "postId": {
+              "versionId": "versionId"
+            }
+          }
         }
       }
       JSON
