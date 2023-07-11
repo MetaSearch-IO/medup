@@ -21,7 +21,7 @@ module Medup
     @dry_run : Bool = false
     @skip_image_downloads : Bool = false
     @post_list_only : Bool = false
-    @no_md_header: Bool = false
+    @no_md_header : Bool = false
 
     def initialize
     end
@@ -81,6 +81,5 @@ module Medup
     def skip_image_downloads? : Bool
       @skip_image_downloads
     end
-
   end
 end

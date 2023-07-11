@@ -42,7 +42,7 @@ module Medium
               post_id = post["postPreview"]["postId"].raw.as(String)
               result << post_id_to_url(post_id)
 
-              puts('"' + post_id + '"' +  " : " + '"' + response["payload"]["references"]["Post"][post_id]["versionId"].raw.as(String) + '"')
+              puts('"' + post_id + '"' + " : " + '"' + response["payload"]["references"]["Post"][post_id]["versionId"].raw.as(String) + '"')
             end
           end
 
@@ -87,7 +87,7 @@ module Medium
             records = references["Post"]
             records.raw.as(Hash).each do |post_id, post|
               result << post_id_to_url(post_id)
-              puts('"' + post_id + '"' +  " : " + '"' + records[post_id]["versionId"].raw.as(String) + '"')
+              puts('"' + post_id + '"' + " : " + '"' + records[post_id]["versionId"].raw.as(String) + '"')
             end
           end
 
@@ -121,7 +121,7 @@ module Medium
           records = references["Post"]
           records.raw.as(Hash).each do |post_id, post|
             result << post_id_to_url(post_id)
-            puts('"' + post_id + '"' +  " : " + '"' + records[post_id]["versionId"].raw.as(String) + '"')
+            puts('"' + post_id + '"' + " : " + '"' + records[post_id]["versionId"].raw.as(String) + '"')
           end
         end
 

@@ -83,7 +83,7 @@ module Medium
     end
 
     def to_pretty_full_payload_json
-        return "" if @raw_payload == ""
+      return "" if @raw_payload == ""
       JSON.parse(@raw_payload).to_pretty_json
     end
 

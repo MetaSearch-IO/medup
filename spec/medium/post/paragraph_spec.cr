@@ -704,7 +704,7 @@ describe Medium::Post::Paragraph do
     allowfullscreen frameborder="0" scrolling="no"></iframe>
       }
       actual = subject.process_youtube_content(content)
-      expected = %{[![Youtube](https://img.youtube.com/vi/30xiI21RraQ/hqdefault.jpg)](https://www.youtube.com/watch?v=30xiI21RraQ)}
+      expected = %{[![Youtube](https://i.ytimg.com/vi/30xiI21RraQ/hqdefault.jpg)](https://www.youtube.com/watch?v=30xiI21RraQ)}
       actual.should eq(expected)
     end
   end
