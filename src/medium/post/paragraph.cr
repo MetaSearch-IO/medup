@@ -11,19 +11,19 @@ module Medium
 
       JSON.mapping(
         {
-          name:            String?,
-          type:            Int64,
-          text:            String,
-          markups:         Array(ParagraphMarkup)?,
-          metadata:        ParagraphMetadata?,
-          layout:          Int64?,
-          hasDropCap:      Bool?,
-          dropCapImage:    DropCapImage?,
-          iframe:          Iframe?,
-          mixtapeMetadata: MixtapeMetadata?,
-          href:            String?,
-          alignment:       Int64?,
-          codeBlockMetadata:  CodeBlockMetadata?,
+          name:              String?,
+          type:              Int64,
+          text:              String,
+          markups:           Array(ParagraphMarkup)?,
+          metadata:          ParagraphMetadata?,
+          layout:            Int64?,
+          hasDropCap:        Bool?,
+          dropCapImage:      DropCapImage?,
+          iframe:            Iframe?,
+          mixtapeMetadata:   MixtapeMetadata?,
+          href:              String?,
+          alignment:         Int64?,
+          codeBlockMetadata: CodeBlockMetadata?,
         },
         strict: true
       )
@@ -157,12 +157,31 @@ module Medium
       def process_youtube_content(content : String) : String
         @logger.debug 7, "Processing youtube element"
         m = content.match(/\<iframe[^\>]*widgets\/media\.html\?.*(&amp;)?url=(?<url>[^&;]*)&amp;/)
+        @logger.debug 12, "Match: #{m}"
         return "" if m.nil?
         m = m.not_nil!
         url = URI.decode(m["url"]).sub("http://", "https://")
-        id = url[/v=[^&]+/][2..]
-        thumbnail_url = "https://img.youtube.com/vi/#{id}/hqdefault.jpg"
-        # TODO: Download thumbnails in same way as images with `download_image`
+        @logger.debug 12, "URL: #{url}"
+
+        # Match ID from URL (v=xxx or list=xxx)
+        id = url.match(/(v|list)=(?<id>[^&;]*)(&|$)/)
+        if id.nil?
+          @logger.warn "Could not find ID in URL #{url}"
+          return ""
+        end
+        @logger.debug 12, "ID: #{id}"
+
+        # Try match thumbnail directly from URL
+        thumbnail_match = content.match(/\<iframe[^\>]*widgets\/media\.html\?.*(&amp;)?image=(?<image>[^&;]*)&amp;/)
+        @logger.debug 12, "Thumbnail Match: #{thumbnail_match}"
+        if thumbnail_match.nil?
+          # If cannot match thumbnail directly, use Youtube API to guess
+          thumbnail_url = "https://img.youtube.com/vi/#{id}/hqdefault.jpg"
+        else
+          thumbnail_url = URI.decode(thumbnail_match["image"]).sub("http://", "https://")
+        end
+
+        @logger.debug 12, "Thumbnail URL: #{thumbnail_url}"
         "[![Youtube](#{thumbnail_url})](#{url})"
       end
 
