@@ -167,7 +167,9 @@ module Medium
         id = url.match(/(v|list)=(?<id>[^&;]*)(&|$)/)
         if id.nil?
           @logger.warn "Could not find ID in URL #{url}"
-          return ""
+          id = ""
+        else
+          id = id["id"].not_nil!
         end
         @logger.debug 12, "ID: #{id}"
 
