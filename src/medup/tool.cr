@@ -115,7 +115,14 @@ module Medup
       slug = post.slug
       created_at = post.created_at
 
-      filename = [created_at.to_s("%F"), slug].reject(&.empty?).join("-") + "." + format
+      # Generate filename
+      # Truncate stem if it's too long
+      filename_stem = [created_at.to_s("%F"), slug].reject(&.empty?).join("-")
+      if filename_stem.size > 50
+        filename_stem = filename_stem[0..49]
+      end
+      filename = filename_stem + "." + format
+
       filepath = File.join(@dist, filename)
 
       if File.exists?(filepath)
@@ -126,7 +133,6 @@ module Medup
         end
       end
       @logger.info "Create file #{filepath}"
-
       if format == "json"
         if !@ctx.settings.dry_run?
           File.write(filepath, post.to_pretty_json)
