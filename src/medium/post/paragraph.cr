@@ -13,7 +13,7 @@ module Medium
         {
           name:              String?,
           type:              Int64,
-          text:              String,
+          text:              {type: String, default: ""},
           markups:           Array(ParagraphMarkup)?,
           metadata:          ParagraphMetadata?,
           layout:            Int64?,
