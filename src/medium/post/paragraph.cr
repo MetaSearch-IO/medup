@@ -414,7 +414,7 @@ module Medium
 
       class MixtapeMetadata
         JSON.mapping(
-          mediaResourceId: String,
+          mediaResourceId: String?,
           href: String?
         )
       end
